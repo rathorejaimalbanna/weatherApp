@@ -1,0 +1,83 @@
+/* CloudAnimation.css */
+
+@keyframes moveClouds {
+    from {
+      transform: translateX(-150%); /* Start far left off-screen */
+      opacity: 0.5; /* Start with some transparency */
+    }
+    to {
+      transform: translateX(150%); /* Move far right off-screen */
+      opacity: 1; /* End with full visibility */
+    }
+  }
+  
+  .clouds {
+    position: absolute;
+    top: 100px; /* Adjusted start position for visibility */
+    left: 0;
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 1;
+  }
+  
+  .cloud {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: moveClouds 20s linear infinite;
+    animation-delay: var(--delay);
+  }
+  
+  .cloud::before,
+  .cloud::after {
+    content: '';
+    position: absolute;
+    background: rgba(255, 255, 255, 0.7); /* Lighter and more transparent clouds */
+    border-radius: 50%;
+  }
+  
+  .cloud::before {
+    width: 100px;   /* Main body of the cloud */
+    height: 60px;
+    z-index: 1;
+    filter: blur(5px); /* Slight blur for softer edges */
+  }
+  
+  .cloud::after {
+    width: 140px;   /* Main body of the cloud */
+    height: 90px;
+    z-index: 2;
+    filter: blur(5px); /* Slight blur for softer edges */
+  }
+  
+  .cloud div {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.7); /* Lighter and more transparent */
+    border-radius: 50%;
+    filter: blur(3px); /* Slight blur for smaller parts */
+  }
+  
+  .cloud .cloud-part1 {
+    width: 60px;   /* Smaller cloud components */
+    height: 60px;
+    top: 10px;
+    left: -30px;
+  }
+  
+  .cloud .cloud-part2 {
+    width: 80px;
+    height: 80px;
+    top: 20px;
+    right: -40px;
+  }
+  
+  .cloud .cloud-part3 {
+    width: 90px;
+    height: 60px;
+    bottom: 15px;
+    right: 10px;
+  }
+  
