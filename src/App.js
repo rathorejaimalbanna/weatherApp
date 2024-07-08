@@ -4,6 +4,7 @@ import { TextField, Typography, Paper, Grid, Box, Button, Dialog, DialogTitle, D
 import './RainAnimation.css'; // Custom CSS for rain
 import './CloudAnimation.css'; // Custom CSS for clouds
 import './App.css'; // Main CSS file
+import "./SunnyAnimation.css"
 
 function App() {
   const [data, setData] = useState({});
@@ -102,7 +103,7 @@ function App() {
     return drops;
   };
   const sunnyAnimation = () => (
-    <Box className="sun" />
+    <Box className="sun" ></Box>
   );
   const createClouds = () => {
     const clouds = [];
@@ -124,6 +125,8 @@ function App() {
     }
     return clouds;
   };
+  
+
 
   const handleOpen = () => {
     setShow(true);
@@ -290,7 +293,7 @@ function App() {
 
 
       {/* Rain animation container */}
-      {data.weather && data.weather[0].description.includes('rain') && (
+      {data.weather && data.weather[0].description.includes('drizzle'|| "rain") && (
         <Box className="rain-container">
           <Box className="rain">
             {createRaindrops()}
@@ -299,12 +302,12 @@ function App() {
       )}
 
       {/* Cloud animation container */}
-      {data.weather && !data.weather[0].description.includes('clear') && (
+      {data.weather && !data.weather[0].description.includes('clear' || "clear sky") && (
         <Box className="clouds">
           {createClouds()}
         </Box>
       )}
-      {data.weather && data.weather[0].description.includes('clear sky') && (
+      {data.weather && data.weather[0].description.includes('clear sky' || "clear") && (
         <Box className="sunny-container">
           {sunnyAnimation()}
         </Box>

@@ -1,46 +1,47 @@
+/* CloudAnimation.css */
+@keyframes moveClouds {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
 .cloud {
   position: absolute;
-  animation: moveClouds 30s linear infinite;
-}
-
-.cloud-part1, .cloud-part2, .cloud-part3 {
-  position: absolute;
+  background: rgba(255, 255, 255, 0.8);
   border-radius: 50%;
-  background: white;
-  opacity: 0.8;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  animation: moveClouds 20s linear infinite;
 }
 
+.cloud-part1,
+.cloud-part2,
+.cloud-part3 {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
+}
+
+/* Sizes and positions for cloud parts */
 .cloud-part1 {
   width: 60px;
   height: 60px;
+  top: -10px;
+  left: 10px;
 }
 
 .cloud-part2 {
   width: 80px;
   height: 80px;
-  left: 50px;
   top: -20px;
+  left: 40px;
 }
 
 .cloud-part3 {
   width: 50px;
   height: 50px;
-  left: 90px;
-  top: 10px;
-}
-
-@keyframes moveClouds {
-  0% {
-    left: -150%;
-  }
-  100% {
-    left: 150%;
-  }
-}
-
-body, html, #root {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
+  top: -10px;
+  left: 70px;
 }
