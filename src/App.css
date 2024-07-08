@@ -80,6 +80,20 @@ h1 {
 .search input::placeholder {
   color: #f8f8f8;
 }
+.mainContainer{
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #2a2a2a;
+    background-image: url("/public/images/new.jpg"); 
+    background-repeat:no-repeat;
+    background-size:cover;
+    background-position: center;
+    position: relative;
+    overflow: hidden;
+}
 
 .container {
   max-width: 90%;

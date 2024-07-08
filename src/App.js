@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { TextField, Typography, Container, Paper, Grid, Box, Button, Dialog, DialogTitle, DialogContent } from '@mui/material'; // MUI components
+import { TextField, Typography, Paper, Grid, Box, Button, Dialog, DialogTitle, DialogContent } from '@mui/material'; // MUI components
 import './RainAnimation.css'; // Custom CSS for rain
 import './CloudAnimation.css'; // Custom CSS for clouds
 import './App.css'; // Main CSS file
@@ -78,6 +78,7 @@ function App() {
     const url = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=metric&appid=${API_KEY}`;
     try {
       const response = await axios.get(url);
+      console.log(response)
       setForecast(response.data.list);
     } catch (error) {
       setError('Error fetching forecast data. Please try again.');
@@ -100,7 +101,9 @@ function App() {
     }
     return drops;
   };
-
+  const sunnyAnimation = () => (
+    <Box className="sun" />
+  );
   const createClouds = () => {
     const clouds = [];
     for (let i = 0; i < 4; i++) {
@@ -109,8 +112,7 @@ function App() {
           key={i}
           className="cloud"
           sx={{
-            '--delay': `${Math.random() * 10}s`,
-            top: `${Math.random() * 100}px`,
+            top: `${Math.random() * 80 + 10}vh`, // Adjust to keep clouds in view
             left: `${Math.random() * 100 - 100}%`,
           }}
         >
@@ -132,21 +134,8 @@ function App() {
   };
 
   return (
-    <Container
-      sx={{
-        height: '100vh',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#2a2a2a',
-        backgroundImage: 'url(/images/new.jpg)', // Update with your image path
-        backgroundRepeat: 'no-repeat',
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        position: 'relative',
-        overflow: 'hidden',
-      }}
+    <div className='mainContainer'
+
     >
       <Box
         sx={{
@@ -281,21 +270,24 @@ function App() {
 
       {/* Forecast Modal */}
       <Dialog open={show} onClose={handleClose}>
-        <DialogTitle> Weather Forecast</DialogTitle>
-        <DialogContent>
-          {forecast.length > 0 ? (
-            forecast.slice(0, 5).map((day, index) => (
-              <Box key={index} sx={{ mb: 2 }}>
-                <Typography>{new Date(day.dt_txt).toLocaleDateString()}</Typography>
-                <Typography>Temp: {day.main.temp}°C</Typography>
-                <Typography>Weather: {day.weather[0].description}</Typography>
-              </Box>
-            ))
-          ) : (
-            <Typography>No forecast data available.</Typography>
-          )}
-        </DialogContent>
-      </Dialog>
+  <DialogTitle>Weather Forecast</DialogTitle>
+  <DialogContent>
+    {forecast.length > 0 ? (
+      [0, 7, 15, 23, 38].map((index) => (
+        forecast[index] && (
+          <Box key={index} sx={{ mb: 2 }}>
+            <Typography>{new Date(forecast[index].dt_txt).toLocaleDateString()}</Typography>
+            <Typography>Temp: {forecast[index].main.temp}°C</Typography>
+            <Typography>Weather: {forecast[index].weather[0].description}</Typography>
+          </Box>
+        )
+      ))
+    ) : (
+      <Typography>No forecast data available.</Typography>
+    )}
+  </DialogContent>
+</Dialog>
+
 
       {/* Rain animation container */}
       {data.weather && data.weather[0].description.includes('rain') && (
@@ -312,7 +304,12 @@ function App() {
           {createClouds()}
         </Box>
       )}
-    </Container>
+      {data.weather && data.weather[0].description.includes('clear sky') && (
+        <Box className="sunny-container">
+          {sunnyAnimation()}
+        </Box>
+      )}
+    </div>
   );
 }
 
